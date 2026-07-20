@@ -1,0 +1,14 @@
+# デフォルト : LF
+* text eol=lf
+
+# ファイル毎の設定
+*.sh text eol=lf
+*.bat text eol=crlf
+*.c text eol=lf
+*.h text eol=lf
+
+# 無変換指定
+*.png binary
+*.jpg binary
+*.zip binary
+*.exe binary

@@ -1,0 +1,6 @@
+*.token
+*music*
+*.mp3
+*.url
+/icon/*
+*__pycache__
