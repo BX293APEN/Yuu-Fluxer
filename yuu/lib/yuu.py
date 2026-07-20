@@ -8,6 +8,8 @@ from datetime import datetime
 import socket
 import asyncio
 
+from .util import CreateMessage
+
 
 class MyClient(Client):
     """
@@ -22,7 +24,7 @@ class MyClient(Client):
     | `TOKEN` | `str` | `TOKENFILE` から読み込んだトークン |
     """
 
-    def __init__(self, TOKENFILE: str = "fluxer.token", configFile: str = "config.json", autorun: bool = True) -> None:
+    def __init__(self, BASEDIR, TOKENFILE: str = "fluxer.token", configFile: str = "config.json", autorun: bool = True) -> None:
         """
         Bot を初期化する。
 
@@ -42,7 +44,9 @@ class MyClient(Client):
         self.event(self.on_ready)
         self.event(self.on_message)
 
-        with open(configFile, "r", encoding="UTF-8") as f:
+        self.BASEDIR = BASEDIR
+
+        with open(f"{self.BASEDIR}/{configFile}", "r", encoding="UTF-8") as f:
             self.config = loads(f.read())
 
         self.weekdayName = ("月", "火", "水", "木", "金", "土", "日")
@@ -52,7 +56,7 @@ class MyClient(Client):
         while not self.check_network():
             sleep(5)
 
-        with open(TOKENFILE, "r", encoding="UTF-8") as f:
+        with open(f"{self.BASEDIR}/{TOKENFILE}", "r", encoding="UTF-8") as f:
             self.TOKEN = f.read().split("\n")[0]
 
         if autorun:
@@ -110,7 +114,7 @@ class MyClient(Client):
         if channel is not None:
             await channel.send(text)
 
-    def send_discord(self, sendMessage: str, channelID: int) -> None:
+    def send(self, sendMessage: str, channelID: int) -> None:
         """
         別スレッドから同期的にメッセージ送信を行うためのラッパー。
 
@@ -165,10 +169,54 @@ class MyClient(Client):
                 nowTZSecond = nowTZTime.second
 
                 sendText = ""
+                with CreateMessage(
+                    admin           = f"{self.config["adminID"]}", 
+                    db              = f"{self.BASEDIR}/{self.config["emotionFile"]}", 
+                    eventFilePath   = f"{self.BASEDIR}/{self.config["eventFilePath"]}",
+                    readme          = f"{self.BASEDIR}/{self.config["README"]}"
+                ) as msg:
+                    eventSearchValue = msg.ev(nowTZdate)
+                todayEvent = eventSearchValue[0]
+                adminOnly = eventSearchValue[1]
+
+                eventFlag = 0
+        
+                if nowTZHour == 0 and nowTZMinute == 0:
+                    sendText = f"日付が変わりました。\n今日は{nowTZdate}です。"
+                    if todayEvent != nowTZdate:
+                        eventFlag = 1
+    
+                elif nowTZHour == 6 and nowTZMinute == 0:
+                    if todayEvent != nowTZdate:
+                        eventFlag = 1
+                    if nowTZWeekday == self.weekdayName[0]:
+                        sendText = f"おはようございます！\n今日は{nowTZdate}月曜日！\n一週間の始まり...\n体調に気を付けて今週も頑張りましょう！！"
+                    elif nowTZWeekday == self.weekdayName[2]:
+                        sendText = "おはようございます！\n今日は一週間の折り返し地点の水曜日です！！\nあと半分で休日ですよ(:3_ヽ)_"
+                    elif nowTZWeekday == self.weekdayName[4]:
+                        sendText = f"おはようございます！\n今日は{nowTZdate}金曜日！！\n今日が終われば休みが待ってます！！\n頑張りましょ(:3_ヽ)_"
+                    else:
+                        sendText = f"おはようございます！\n今日は{nowTZdate}\n今日も一日体調に気を付けて過ごしましょ！"
+
+                elif nowTZHour == 12 and nowTZMinute == 0:
+                    sendText = "お昼です。\n皆さん休みましょう！！"
+
+                elif nowTZHour == 0 and nowTZMinute == 15:
+                    sendText = "おやすみzzz..."
+                    with open(f"{self.BASEDIR}/{self.config["tempFile"]}","w",encoding="UTF-8") as tempFile:
+                        tempFile.write("U,WORD")
 
                 if sendText != "":
-                    for channel in channelList:
-                        await self.send_message(sendText, channel["id"])
+                    for channelID in channelList:
+                        await self.send_message(sendText, channelID)
+
+                if eventFlag == 1:
+                    if adminOnly == "False":
+                        for channelID in channelList:
+                            await self.send_message(f"今日は{todayEvent}", channelID)
+                    else:
+                        await self.send_message(f"今日は{todayEvent}", self.config["adminID"])
+
             except Exception:
                 # 定時処理内の例外でループ全体が止まらないようにする
                 import logging
@@ -197,5 +245,17 @@ class MyClient(Client):
             return
 
         await message.add_reaction("❤️")
-        self.message["message"] = str(message.content).lstrip().replace("$", "", 1).replace("\n", "")
+
+        arrangedMessage = str(message.content).lstrip().replace("$", "", 1).replace("\n", "")
+
+        with CreateMessage(
+            admin           = f"{self.config["adminID"]}", 
+            db              = f"{self.BASEDIR}/{self.config["emotionFile"]}", 
+            eventFilePath   = f"{self.BASEDIR}/{self.config["eventFilePath"]}",
+            readme          = f"{self.BASEDIR}/{self.config["README"]}"
+        ) as msg:
+            msg.classify_message(arrangedMessage, 1)
+            sendTimeLineMessage = msg.get_message()
+
+        self.message["message"] = str(sendTimeLineMessage)
         await self.send_message(self.message["message"], self.message["channelID"])

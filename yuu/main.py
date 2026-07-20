@@ -5,4 +5,4 @@ sys.path.append(DIR_ABS_PATH)
 from lib.yuu import MyClient
 
 if __name__ == "__main__":
-    MyClient(f"{DIR_ABS_PATH}/config/fluxer.token", f"{DIR_ABS_PATH}/config/config.json")
+    MyClient(f"{DIR_ABS_PATH}", f"config/fluxer.token", f"config/config.json")

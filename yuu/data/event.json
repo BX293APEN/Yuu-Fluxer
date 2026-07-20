@@ -1,0 +1,132 @@
+[
+    {
+        "date" : "1/1", 
+        "value":"元旦！明けましておめでとうございます！！今年もよろしくです！",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "1/31", 
+        "value":"サキュミン実装記念日！(*´ω｀*)〜♪@Saq_sPuppet",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "2/5", 
+        "value":"サキュバス実装記念日！(*´ω｀*)〜♪@Saq_sPuppet",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "2/8", 
+        "value":"サキミタマ初降臨日！(*´ω｀*)〜♪",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "2/14", 
+        "value":"バレンタイン...チョコレートか...",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "3/3",
+        "value":"ひな祭り(๑´ㅂ`๑)ﾊﾟｸﾊﾟｸ(ひなあられ)",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "3/6",
+        "value":"相棒(@OeBhoPkLaSUxVGa)の猫ちゃん(さっちゃん)の誕生日です！！ Happy Birthday！！",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "3/9", 
+        "value":"ミクの日&ソーダ水先生の誕生日です！！\nHappy Birthdayなのです！！\nソーダ水先生の絵アカ→@SOD_073294\nソーダ水先生のVアカ→@sod073294_sub",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "3/14", 
+        "value":"ホワイトデーであり、大事な相棒(@OeBhoPkLaSUxVGa)の誕生日です！！「相棒、誕生日おめでとう！！」(PENより)",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "3/24", 
+        "value":"海老せん大好き海老せん君(@ikasumisen)の誕生日です！！「海老せんくん、いつもありがと(*´ω｀*)〜♪」(PENより)",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "3/30", 
+        "value":"綾波レイの誕生日！！綾波、そしてCVの林原めぐみさん...誕生日...おめでとう...！！",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "4/1", 
+        "value":"エイプリルフール！嘘...？Botだからよく分かんない...",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "5/5", 
+        "value":"こどもの日！鯉のぼりが綺麗ですね...",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "5/23", 
+        "value":"小林先生(@LCN6SFolooJhJsO)の誕生日です！小林さんがいなければ、私...作られなかったかも...「いつもありがとうございます！この娘、気に入っていただけたでしょうか...？」(PEN)",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "6/6", 
+        "value":"碇シンジくん&CVの緒方恵美さんの誕生日！！おめでとう！",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "7/7", 
+        "value":"七夕ですね！皆はどんな願い事するのかな...？",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "7/14", 
+        "value":"ガブ君獣神化解禁日！！おめでとう！！",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "7/22", 
+        "value":"お姉ちゃん(@BX293A_PEN)の大好きなももちゃん(@Saq_sPuppet)の誕生日！！「いつもありがと(*´ω｀*)〜♪ももちゃん大好き！！」(PENより)",
+        "adminOnly" : "True"
+    },
+    {
+        "date" : "10/31", 
+        "value":"ハロウィーン！お菓子くれないといたずらしちゃうぞ～",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "11/11", 
+        "value":"ポッキーの日！！\nŧ‹”(o’ч’o)ŧ‹”",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "12/4", 
+        "value":"アスカ&CVの宮村優子さんの誕生日！おめでとう！！",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "12/22", 
+        "value":"私を作ってくれたペンちゃん(@BX293A_PEN)の誕生日！おめでと(*´ω｀*)〜♪",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "12/24", 
+        "value":"クリスマスイヴ！メリークリスマス！！",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "12/25", 
+        "value":"クリスマス！メリークリスマス！！",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "12/31", 
+        "value":"大晦日！今年も一年ありがとうございました！よいお年を...",
+        "adminOnly" : "False"
+    },
+    {
+        "date" : "0/0", 
+        "value":"テストイベント",
+        "adminOnly" : "True"
+    }
+]

@@ -2,5 +2,9 @@
     "adminID"   : 1528585427911450624,
     "autoAllowChannel" : [
         1528590682170597383
-    ]
+    ],
+    "emotionFile" : "data/sqlite3.db",
+    "eventFilePath" : "data/event.json",
+    "README" : "README.md",
+    "tempFile" : "data/temp"
 }
