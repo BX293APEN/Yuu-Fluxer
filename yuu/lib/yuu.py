@@ -170,10 +170,10 @@ class MyClient(Client):
 
                 sendText = ""
                 with CreateMessage(
-                    admin           = f"{self.config["adminID"]}", 
-                    db              = f"{self.BASEDIR}/{self.config["emotionFile"]}", 
-                    eventFilePath   = f"{self.BASEDIR}/{self.config["eventFilePath"]}",
-                    readme          = f"{self.BASEDIR}/{self.config["README"]}"
+                    admin           = f"""{self.config["adminID"]}""", 
+                    db              = f"""{self.BASEDIR}/{self.config["emotionFile"]}""", 
+                    eventFilePath   = f"""{self.BASEDIR}/{self.config["eventFilePath"]}""",
+                    readme          = f"""{self.BASEDIR}/{self.config["README"]}"""
                 ) as msg:
                     eventSearchValue = msg.ev(nowTZdate)
                 todayEvent = eventSearchValue[0]
@@ -203,7 +203,7 @@ class MyClient(Client):
 
                 elif nowTZHour == 0 and nowTZMinute == 15:
                     sendText = "おやすみzzz..."
-                    with open(f"{self.BASEDIR}/{self.config["tempFile"]}","w",encoding="UTF-8") as tempFile:
+                    with open(f"""{self.BASEDIR}/{self.config["tempFile"]}""","w",encoding="UTF-8") as tempFile:
                         tempFile.write("U,WORD")
 
                 if sendText != "":
@@ -215,7 +215,7 @@ class MyClient(Client):
                         for channelID in channelList:
                             await self.send_message(f"今日は{todayEvent}", channelID)
                     else:
-                        await self.send_message(f"今日は{todayEvent}", self.config["adminID"])
+                        await self.send_message(f"""今日は{todayEvent}""", self.config["adminID"])
 
             except Exception:
                 # 定時処理内の例外でループ全体が止まらないようにする
@@ -249,10 +249,10 @@ class MyClient(Client):
         arrangedMessage = str(message.content).lstrip().replace("$", "", 1).replace("\n", "")
 
         with CreateMessage(
-            admin           = f"{self.config["adminID"]}", 
-            db              = f"{self.BASEDIR}/{self.config["emotionFile"]}", 
-            eventFilePath   = f"{self.BASEDIR}/{self.config["eventFilePath"]}",
-            readme          = f"{self.BASEDIR}/{self.config["README"]}"
+            admin           = f"""{self.config["adminID"]}""", 
+            db              = f"""{self.BASEDIR}/{self.config["emotionFile"]}""", 
+            eventFilePath   = f"""{self.BASEDIR}/{self.config["eventFilePath"]}""",
+            readme          = f"""{self.BASEDIR}/{self.config["README"]}"""
         ) as msg:
             msg.classify_message(arrangedMessage, 1)
             sendTimeLineMessage = msg.get_message()
