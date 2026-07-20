@@ -93,7 +93,36 @@ class CreateMessage(MySQLite):
         elif self.categoryData.count("time")>0:
             return f"{self.nowTime.hour}:{self.nowTime.minute}だよ"
         elif self.categoryData.count("weather")>0:
-            return self.get_weather()
+            url = self.get_weather_url()
+            weatherData     = requests.get(url)
+            weatherJSONData = json.loads(weatherData.text)
+            if arrangedMessage.count("明日") > 0:
+                dateNumber = 1
+            elif arrangedMessage.count("明後日") > 0:
+                dateNumber = 2
+            else:
+                dateNumber = 0
+            weatherDate = weatherJSONData["forecasts"][dateNumber]["date"]
+            weartherTitle = weatherJSONData["title"]
+            if dateNumber == 2:
+                weather = weatherJSONData["forecasts"][dateNumber]["telop"]
+            else:
+                weather = weatherJSONData["forecasts"][dateNumber]["detail"]["weather"]
+            tempMin = weatherJSONData["forecasts"][dateNumber]["temperature"]["min"]["celsius"]
+            tempMax = weatherJSONData["forecasts"][dateNumber]["temperature"]["max"]["celsius"]
+            telop = weatherJSONData["description"]["text"].replace("　","")
+            chanceOfRain0_6 = weatherJSONData["forecasts"][dateNumber]["chanceOfRain"]["T00_06"]
+            chanceOfRain6_12 = weatherJSONData["forecasts"][dateNumber]["chanceOfRain"]["T06_12"]
+            chanceOfRain12_18 = weatherJSONData["forecasts"][dateNumber]["chanceOfRain"]["T12_18"]
+            chanceOfRain18_24 = weatherJSONData["forecasts"][dateNumber]["chanceOfRain"]["T18_24"]
+            chanceOfRain = f"""
+0時～6時 : {chanceOfRain0_6}
+6時～12時 : {chanceOfRain6_12}
+12時～18時 : {chanceOfRain12_18}
+18時～24時 : {chanceOfRain18_24}
+            """
+            svgWeatherURL = weatherJSONData["forecasts"][dateNumber]["image"]["url"]
+            return f"""{str(weatherDate)}の{weartherTitle}は{weather}"""
         
         elif self.categoryData.count("morse")>0:
             return f"""
@@ -279,7 +308,7 @@ class CreateMessage(MySQLite):
     def get_reminder(self):
         return self.reminderTime
 
-    def get_weather(self):
+    def get_weather_url(self):
         jsonURL = "https://weather.tsukumijima.net/api/forecast/city/"
         try:
             cityID = self.send_sql(f"""
