@@ -234,6 +234,9 @@ class CreateMessage(MySQLite):
                 return "ペンちゃんがなんか重いアプリ開いてるから、処理を頑張っているのだ...！\n偉いでしょ(*´ω｀*)〜♪"
             else:
                 return "元気だよ！ありがと(*´ω｀*)〜♪"
+        
+        elif self.categoryData.count("callYuu") > 0:
+            return "何？"
 
         else:
             replyData = self.send_sql(f"""
@@ -265,7 +268,7 @@ class CreateMessage(MySQLite):
                                 return "callyou"
                         return "私は、ユウって名前だよ！\nよろしくね！！"
 
-                    elif self.categoryData == "callYuu":
+                    elif self.categoryData.count("callYuu") > 0:
                         return "何？"
 
                     elif self.categoryData == "question":
