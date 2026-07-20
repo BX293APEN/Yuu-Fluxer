@@ -96,9 +96,9 @@ class CreateMessage(MySQLite):
             url = self.get_weather_url()
             weatherData     = requests.get(url)
             weatherJSONData = json.loads(weatherData.text)
-            if arrangedMessage.count("明日") > 0:
+            if self.message.count("明日") > 0:
                 dateNumber = 1
-            elif arrangedMessage.count("明後日") > 0:
+            elif self.message.count("明後日") > 0:
                 dateNumber = 2
             else:
                 dateNumber = 0
